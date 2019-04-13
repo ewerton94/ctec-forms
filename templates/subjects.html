@@ -1,0 +1,99 @@
+{% extends 'index.html' %}
+{% block body %}
+
+<div class="main">
+
+    <div class="container">
+        <div class="signup-content">
+            <div class="signup-form">
+
+                <form method="POST" class="register-form" id="register-form">
+                  {% csrf_token %}
+                  <h1>{{ form.name }}</h1>
+                  <p style="color: black; text-align: justify; font-weight: normal;">{{ form.description }}</p>
+                  {% if subjects %}
+                  <h2>Responda as  questões sobre cada disciplina abaixo:</h2>
+                  {% for subject in subjects %}
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <button  type="button" class="btn btn-success pull-right" data-toggle="collapse" data-target="#subject_{{ subject.id }}"><i class="panel-control-icon glyphicon-plus glyphicon float-right"></i></button>
+                          <div class="panel-title ">
+                              <h4 >{{ subject }}</h4>
+                          </div>
+                      </div>
+                      <div id="subject_{{ subject.id }}" class="panel-body collapse">
+                        <ol>
+
+
+                        {% for group in form.groups.all %}
+                        <h3><li>{{ group.name }}</li></h3>
+                        <ol type="A">
+
+
+                        {% for question in group.questions.all %}
+                        <div class="form-radio">
+                            <div class="label-flex">
+                                <label for="payment"><li>{{ question.name }}</li></label>
+                            </div>
+                            <div class="form-radio-group">
+                              {% for option in question.options.all %}
+                                <div class="form-radio-item">
+                                    <input type="radio" name="{{ question.public_id }}_by_{{ subject.id }}" id="{{ option.id }}_by_{{ question.public_id }}_by_{{ subject.id }}" value="{{ option.id }}">
+                                    <label for="{{ option.id }}_by_{{ question.public_id }}_by_{{ subject.id }}">{{ option.name }}</label>
+                                    <span class="check"></span>
+                                </div>
+                              {% endfor %}
+                            </div>
+                        </div>
+                        <br>
+                        {% endfor %}
+                        </ol>
+                        <br>
+                        {% endfor %}
+                        </ol>
+                      </div>
+                  </div>
+
+                  {% endfor %}
+                  {% endif %}
+                  {% if grades %}
+                  <h2>Selecione as disciplinas que você pagou no semestre 2018.2</h2>
+                  {% for grade in grades %}
+                  <div class="panel panel-default">
+                      <div class="panel-heading">
+                        <button  type="button" class="btn btn-success pull-right" data-toggle="collapse" data-target="#grade_{{ grade.number }}"><i class="panel-control-icon glyphicon-plus glyphicon float-right"></i></button>
+                          <div class="panel-title ">
+                              <h4 >{{ grade.number }}º período</h4>
+                          </div>
+                      </div>
+                      <div id="grade_{{ grade.number }}" class="panel-body collapse">
+                        {% for subject in grade.subjects %}
+                        <label class="checkbox-form">{{ subject.name }}
+                            <input type="checkbox" name="subjects" value="{{ subject.id }}">
+                            <span class="checkmark"></span>
+                        </label>
+                        {% endfor %}
+                      </div>
+                  </div>
+
+                  {% endfor %}
+                  {% endif %}
+
+                    <div class="form-submit">
+                        <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+
+ </script>
+{% endblock %}

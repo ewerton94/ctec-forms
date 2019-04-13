@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Formulários</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="vendor/nouislider/nouislider.min.css">
+    <!-- Main css -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lobipanel/1.0.6/css/lobipanel.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css">
+<style >
+  .glyphicon-th {
+    display: none;
+  }
+</style>
+
+</head>
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container " style="background: #222;">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed"  data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">CTEC Fomulários</a>
+        </div>
+        <!--<div id="navbar" class="collapse navbar-collapse" >
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>-->
+      </div>
+    </nav>
+
+    <div class="main">
+
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-form">
+
+                    <form method="POST" class="register-form" id="register-form">
+                      <h1>Nome do formulário</h1>
+
+
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                              <div class="panel-title">
+                                  <h4>1º período</h4>
+                              </div>
+                          </div>
+                          <div class="panel-body">
+                            <label class="checkbox-form">One
+                                <input type="checkbox" name="subjects">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-form">One
+                                <input type="checkbox" name="subjects" >
+                                <span class="checkmark"></span>
+                            </label>
+                          </div>
+                      </div>
+
+
+
+
+
+
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="form-input">
+                                    <label for="first_name" class="required">First name</label>
+                                    <input type="text" name="first_name" id="first_name" />
+                                </div>
+                                <div class="form-select">
+                                    <div class="label-flex">
+                                        <label for="meal_preference">meal preference</label>
+                                        <a href="#" class="form-link">Lunch detail</a>
+                                    </div>
+                                    <div class="select-list">
+                                        <select class="list-in-form" name="meal_preference" id="meal_preference">
+                                            <option class="choicelist-in-form" value="Vegetarian">Vegetarian</option>
+                                            <option class="choicelist-in-form" value="Kosher">Kosher</option>
+                                            <option class="choicelist-in-form" value="Asian Vegetarian">Asian Vegetarian</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-radio">
+                                    <div class="label-flex">
+                                        <label for="payment">Payment Mode</label>
+                                        <a href="#" class="form-link">Payment Detail</a>
+                                    </div>
+                                    <div class="form-radio-group">
+                                        <div class="form-radio-item">
+                                            <input type="radio" name="payment" id="cash" checked>
+                                            <label for="cash">Cash</label>
+                                            <span class="check"></span>
+                                        </div>
+                                        <div class="form-radio-item">
+                                            <input type="radio" name="payment" id="cheque">
+                                            <label for="cheque">Cheque</label>
+                                            <span class="check"></span>
+                                        </div>
+                                        <div class="form-radio-item">
+                                            <input type="radio" name="payment" id="demand">
+                                            <label for="demand">Demand Draf</label>
+                                            <span class="check"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-radio">
+                                    <div class="label-flex">
+                                        <label for="payment">Payment Mode</label>
+                                        <a href="#" class="form-link">Payment Detail</a>
+                                    </div>
+                                    <label class="checkbox-form">One
+                                        <input type="checkbox" >
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="checkbox-form">Two
+                                        <input type="checkbox" >
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label class="checkbox-form">Three
+                                        <input type="checkbox" >
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+
+
+
+                                <div class="form-input">
+                                    <label for="chequeno">DD / Cheque No.</label>
+                                    <input type="text" name="chequeno" id="chequeno" />
+                                </div>
+                                <div class="form-input">
+                                    <label for="blank_name">Drawn on ( Bank Name)</label>
+                                    <input type="text" name="blank_name" id="blank_name" />
+                                </div>
+                                <div class="form-input">
+                                    <label for="payable">Payable at</label>
+                                    <input type="text" name="payable" id="payable" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="donate-us">
+                            <label>Donate us</label>
+                            <div class="price_slider ui-slider ui-slider-horizontal">
+                                <div id="slider-margin"></div>
+                                <span class="donate-value" id="value-lower"></span>
+                            </div>
+                        </div>
+                        <div class="form-submit">
+                            <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
+                            <input type="submit" value="Reset" class="submit" id="reset" name="reset" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lobipanel/1.0.6/js/lobipanel.js"></script>
+
+
+
+    <script src="vendor/nouislider/nouislider.min.js"></script>
+    <script src="vendor/wnumb/wNumb.js"></script>
+    <script src="vendor/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="vendor/jquery-validation/dist/additional-methods.min.js"></script>
+    <script src="js/main.js"></script>
+
+
+    <script>
+
+
+    </script>
+
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>
