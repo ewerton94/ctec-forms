@@ -7,7 +7,13 @@
         <div class="signup-content">
             <div class="signup-form">
 
+
+
+
                 <form method="POST" class="register-form" id="register-form">
+
+
+
                   {% csrf_token %}
                   <h1>{{ form.name }}</h1>
                   <p style="color: black; text-align: justify; font-weight: normal;">{{ form.description }}</p>
@@ -31,6 +37,7 @@
 
 
                         {% for question in group.questions.all %}
+                        {% if question.type == 'radio' %}
                         <div class="form-radio">
                             <div class="label-flex">
                                 <label for="payment"><li>{{ question.name }}</li></label>
@@ -38,7 +45,7 @@
                             <div class="form-radio-group">
                               {% for option in question.options.all %}
                                 <div class="form-radio-item">
-                                    <input type="radio" name="{{ question.public_id }}_by_{{ subject.id }}" id="{{ option.id }}_by_{{ question.public_id }}_by_{{ subject.id }}" value="{{ option.id }}">
+                                    <input type="radio" required name="{{ question.public_id }}_by_{{ subject.id }}" id="{{ option.id }}_by_{{ question.public_id }}_by_{{ subject.id }}" value="{{ option.id }}">
                                     <label for="{{ option.id }}_by_{{ question.public_id }}_by_{{ subject.id }}">{{ option.name }}</label>
                                     <span class="check"></span>
                                 </div>
@@ -46,6 +53,16 @@
                             </div>
                         </div>
                         <br>
+                        {% endif %}
+                        {% if question.type == 'text' %}
+
+                        <div class="form-input">
+                            <label for="{{ question.public_id }}_by_{{ subject.id }}">{{ question.name }}</label>
+                            <textarea class="form-control" name="{{ question.public_id }}_by_{{ subject.id }}" id="{{ question.public_id }}_by_{{ subject.id }}"   /></textarea>
+                        </div>
+
+                        <br>
+                        {% endif %}
                         {% endfor %}
                         </ol>
                         <br>
@@ -63,12 +80,16 @@
                       <div class="panel-heading">
                         <button  type="button" class="btn btn-success pull-right" data-toggle="collapse" data-target="#grade_{{ grade.number }}"><i class="panel-control-icon glyphicon-plus glyphicon float-right"></i></button>
                           <div class="panel-title ">
+                            {% if grade.eletiva %}
+                              <h4 >Disciplinas eletivas</h4>
+                            {% else %}
                               <h4 >{{ grade.number }}º período</h4>
+                            {% endif %}
                           </div>
                       </div>
                       <div id="grade_{{ grade.number }}" class="panel-body collapse">
                         {% for subject in grade.subjects %}
-                        <label class="checkbox-form">{{ subject.name }}
+                        <label  class="checkbox-form">{{ subject.name }}
                             <input type="checkbox" name="subjects" value="{{ subject.id }}">
                             <span class="checkmark"></span>
                         </label>
@@ -79,9 +100,24 @@
                   {% endfor %}
                   {% endif %}
 
+                  {% if error %}
+                  {{ error }}
+                  {% endif %}
+
+                  {% if success %}
+                  <div class="alert alert-success fade in">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <strong>Enviado!</strong> Sua resposta para este formulário foi salva com sucesso. Obrigado por sua contribuição.
+</div>
+
+                  {% else %}
+
+
                     <div class="form-submit">
                         <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
                     </div>
+
+                    {% endif %}
                 </form>
             </div>
         </div>
@@ -94,6 +130,7 @@
 
 {% block extra_js %}
 <script>
+
 
  </script>
 {% endblock %}
