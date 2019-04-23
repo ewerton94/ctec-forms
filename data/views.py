@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
+from __future__ import print_function
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import QueryDict
 from django.db import transaction
