@@ -168,13 +168,12 @@ class Result(models.Model):
     answer = models.TextField()
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=True)
 
-    def __unicode__(self):
-        return '%s para a pergunta "%s" do formulário "%s".'%(self.answer, str(self.question), str(self.form))
+
 
 
     if sys.version_info[0] >= 3: # Python 3
         def __str__(self):
-            return self.__unicode__()
+            return '%s para a pergunta "%s" do formulário "%s".'%(self.answer, str(self.question), str(self.form))
     else:  # Python 2
         def __str__(self):
-            return self.__unicode__().encode('utf8')
+            return '%s para a pergunta "%s" do formulário "%s".'%(self.answer.encode('utf8'), str(self.question.name.encode('utf8')), self.form.name.encode('utf8')))
