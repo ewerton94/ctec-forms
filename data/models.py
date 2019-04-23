@@ -176,4 +176,4 @@ class Result(models.Model):
             return '%s para a pergunta "%s" do formulário "%s".'%(self.answer, str(self.question), str(self.form))
     else:  # Python 2
         def __str__(self):
-            return '%s para a pergunta "%s" do formulário "%s".'%(self.answer.encode('utf8'), str(self.question.name.encode('utf8')), self.form.name.encode('utf8')))
+            return '%s para a pergunta "%s" do formulário "%s".'%(self.answer.encode('utf8'), self.question.name.encode('utf8'), self.form.name.encode('utf8'))
