@@ -179,4 +179,4 @@ class Result(models.Model):
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=True)
 
     def __unicode__(self):
-        return self.order
+        return str(self.order)
