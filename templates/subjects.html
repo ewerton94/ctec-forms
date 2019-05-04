@@ -49,6 +49,7 @@
 
 
                         {% for question in group.questions.all %}
+
                         {% if question.type == 'radio' %}
                         <div class="form-radio">
                             <div class="label-flex">
@@ -65,8 +66,7 @@
                             </div>
                         </div>
                         <br>
-                        {% endif %}
-                        {% if question.type == 'text' %}
+                        {% elif question.type == 'text' %}
 
                         <div class="form-input">
                             <label for="{{ question.public_id }}_by_{{ subject.id }}">{{ question.name }}</label>
@@ -74,6 +74,17 @@
                         </div>
 
                         <br>
+                        {% elif question.type == 'select' %}
+
+                        <div class="form-group">
+                        <label for="{{ question.public_id }}_by_{{ subject.id }}">{{ question.name }}</label>
+                        <select class="form-control" name="{{ question.public_id }}_by_{{ subject.id }}" >
+                          {% for option in question.options.all %}
+                          <option value="{{ option.id }}">{{ option.name }}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+
                         {% endif %}
                         {% endfor %}
                         </ol>

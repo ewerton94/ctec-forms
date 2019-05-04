@@ -83,8 +83,9 @@ class Question(models.Model):
     class Meta:
         verbose_name = 'Pergunta'
         verbose_name_plural = 'Perguntas'
-        ordering = ['id',]
+        ordering = ['order', 'id']
     public_id = models.CharField(max_length=15, null=True, blank=True)
+    order = models.IntegerField(default=0)
     name = models.CharField(max_length=1000)
     type = models.CharField(max_length=100, choices=QUESTION_TYPES)
     options = models.ManyToManyField(Option, related_name='questions', blank=True)
@@ -112,7 +113,9 @@ class Question(models.Model):
 
 class Group(models.Model):
     class Meta:
-        pass
+        ordering = ['order', 'id']
+
+    order = models.IntegerField(default=0)
     name = models.CharField(max_length=1000)
     questions = models.ManyToManyField(Question, related_name='groups', blank=True)
 
