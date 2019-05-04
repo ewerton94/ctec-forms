@@ -15,7 +15,7 @@
 
 
                   {% csrf_token %}
-                  <h1>{{ form.name }}</h1>
+                  <h1 style="color:black">{{ form.name }}</h1>
                   <p style="color: black; text-align: justify; font-weight: normal;">{{ form.description }}</p>
 
                   {% if erro %}
@@ -30,7 +30,7 @@
 
                   {% endif %}
                   {% if subjects %}
-                  <h2>Responda as  questões sobre cada disciplina abaixo:</h2>
+                  <h2 style="color:black">Responda as  questões sobre cada disciplina abaixo:</h2>
                   {% for subject in subjects %}
                   <div class="panel panel-default">
                       <div class="panel-heading">
@@ -44,7 +44,7 @@
 
 
                         {% for group in form.groups.all %}
-                        <h3><li>{{ group.name }}</li></h3>
+                        <h3><li style="color:black">{{ group.name }}</li></h3>
                         <ol type="A">
 
 
@@ -94,7 +94,7 @@
     <a href="#" class="close" data-dismiss="alert">&times;</a>
     Sua matrícula é utilizada apenas com a finalidade de se ter um controle das respostas, e para remover respostas de alunos que não são de Engenharia Civil. <strong>Preencha corretamente sua matrícula e garanta sua contribuição. <br><br>As respostas não serão vinculadas às matrículas!</strong>
 </div>
-                  <h2>Selecione as disciplinas que você pagou no semestre 2018.2</h2>
+                  <h2 style="color:black">Selecione as disciplinas que você pagou no semestre 2018.2</h2>
                   {% for grade in grades %}
                   <div class="panel panel-default">
                       <div class="panel-heading">
