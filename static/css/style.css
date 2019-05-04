@@ -205,7 +205,7 @@ body {
   font-weight: 500;
   font-family: 'Poppins';
   margin: 0px;
-  background: #222;
+
   padding: 0; }
 
 
@@ -638,10 +638,10 @@ label.error {
   label.error:after {
     font-family: 'Material-Design-Iconic-Font';
     position: absolute;
-    content: '\f1f8';
+    content: '\f1f8 Sem resposta!';
     right: 20px;
     top: 37px;
-    font-size: 23px;
+    font-size: 18px;
     color: #c70000; }
 
 input.error {

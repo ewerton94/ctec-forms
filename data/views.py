@@ -4,7 +4,7 @@ from __future__ import print_function
 from django.shortcuts import render, HttpResponseRedirect
 from django.http import QueryDict
 from django.db import transaction
-from .models import Form, Course, Subject, Option, Result
+from .models import Form, Course, Subject, Option, Result, Matricula
 
 def get_order_response(form):
     r = Result.objects.filter(form=form)
@@ -27,10 +27,18 @@ def obtem_query(request):
     return QueryDict(filtro, mutable = True)
 
 def subjects(request, form_public_id, course_code=None):
+    erro = ''
     query = obtem_query(request)
     form = Form.objects.get(public_id=form_public_id)
     if course_code is None:
         raise "erro"
+    if 'success' in query:
+        return render(request, 'subjects.html',
+            {
+
+                'success': 'Obrigado por contribuir com este formulário!'
+        })
+
     course = Course.objects.get(code=course_code)
     if 'subjects' in query:
         ids = list(map(int, query.get('subjects').split(',')))
@@ -39,51 +47,52 @@ def subjects(request, form_public_id, course_code=None):
             with transaction.atomic():
                 data = dict(request.POST)
                 order = get_order_response(form)
-                for subject in subjects:
-                    for group in form.groups.all():
-                        for question in group.questions.all():
+                matricula = query.get('matricula')
+                m = Matricula.objects.filter(number=matricula)
+                print(matricula)
+                if m:
+                    erro = 'Você já respondeu a este questionário!'
+                    return HttpResponseRedirect('?')
 
-                            if question.type == 'text':
-                                option = None
-                                answer = data.get(question.public_id + '_by_' + str(subject.id))[0]
-                            if question.type in ['range', 'number']:
-                                option = None
-                                answer = data.get(question.public_id + '_by_' + str(subject.id))[0]
+                elif 8 > len(matricula) or 9 < len(matricula):
+                    erro = 'Matrícula inválida!'
+                else:
+                    for subject in subjects:
+                        for group in form.groups.all():
+                            for question in group.questions.all():
 
-                            elif question.type in ['radio', 'select']:
-                                answer = data.get(question.public_id + '_by_' + str(subject.id))[0]
-                                if answer is None:
-                                    return render(request, 'subjects.html',
-                                        {
-                                            'subjects': subjects,
-                                            'form': form,
-                                            'course': course,
-                                            'error': 'Você tentou enviar uma resposta faltando informações. Por favor, tente novamente!'
-                                    })
-                                option = Option.objects.get(id=answer)
-                            Result.objects.create(
-                                order=order,
-                                question=question,
-                                form=form,
-                                answer=answer,
-                                subject=subject
-                            )
-                return render(request, 'subjects.html',
-                    {
+                                if question.type == 'text':
+                                    option = None
+                                    answer = data.get(question.public_id + '_by_' + str(subject.id))[0]
+                                if question.type in ['range', 'number']:
+                                    option = None
+                                    answer = data.get(question.public_id + '_by_' + str(subject.id))[0]
 
+                                elif question.type in ['radio', 'select']:
+                                    answer = data.get(question.public_id + '_by_' + str(subject.id))
+                                    if answer is None:
+                                        return render(request, 'subjects.html',
+                                            {
+                                                'subjects': subjects,
+                                                'form': form,
+                                                'course': course,
+                                                'error': 'Você tentou enviar uma resposta faltando informações. Por favor, tente novamente!'
+                                        })
+                                    answer = answer[0]
+                                    option = Option.objects.get(id=answer)
+                                Result.objects.create(
+                                    order=order,
+                                    question=question,
+                                    form=form,
+                                    answer=answer,
+                                    subject=subject
+                                )
+                    Matricula.objects.create(number=matricula)
+                    return HttpResponseRedirect('?success=ok')
 
-                        'success': 'Obrigado por contribuir com este formulário!'
-                })
-
-
-
-
-
-                keys = [e for e in a.keys() if '_by_' in e]
-                keys = sorted(keys, key=lambda x: x.split('_by_')[1])
-                print(*keys, sep='\n')
         return render(request, 'subjects.html',
             {
+                'erro': erro,
                 'subjects': subjects,
                 'form': form,
                 'course': course
@@ -92,11 +101,26 @@ def subjects(request, form_public_id, course_code=None):
 
     if request.method == 'POST':
         print(request.POST)
-        a = dict(request.POST)
-        print(a)
-        a = ','.join(a['subjects'])
-        print(a)
-        return HttpResponseRedirect('?subjects=' + a)
+        data = dict(request.POST)
+        print(data)
+        a = data.get('subjects')
+        if not a:
+            erro = 'Você não selecionou nenhuma disciplina!'
+        else:
+            a = ','.join(a)
+            print(a)
+            matricula = data['matricula'][0]
+            m = Matricula.objects.filter(number=matricula)
+            print(m)
+            if m:
+                erro = 'Você já respondeu a este questionário!'
+                print('Erro de respondeu')
+            elif 8 > len(matricula) or 9 < len(matricula):
+                erro = 'Matrícula inválida!'
+                print('Erro de inválida')
+            else:
+                print('Era pra ir')
+                return HttpResponseRedirect('?subjects=' + a + '&matricula='+matricula)
     subjects = Subject.objects.select_related().filter(course__code=course_code, eletiva=False)
     eletivas = Subject.objects.select_related().filter(eletiva=True)
     grades = []
@@ -115,5 +139,6 @@ def subjects(request, form_public_id, course_code=None):
         {
             'grades': grades,
             'form': form,
-            'course': course
+            'course': course,
+            'erro': erro
     })

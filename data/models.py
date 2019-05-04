@@ -48,7 +48,18 @@ class Subject(models.Model):
     else:  # Python 2
         def __str__(self):
             return self.__unicode__().encode('utf8')
+class Matricula(models.Model):
+    number = models.CharField(max_length=10)
 
+    def __unicode__(self):
+        return self.number
+
+    if sys.version_info[0] >= 3: # Python 3
+        def __str__(self):
+            return self.__unicode__()
+    else:  # Python 2
+        def __str__(self):
+            return self.__unicode__().encode('utf8')
 class Option(models.Model):
     class Meta:
         ordering = ['id',]
@@ -107,7 +118,6 @@ class Group(models.Model):
 
     def __unicode__(self):
         return self.name
-
 
     if sys.version_info[0] >= 3: # Python 3
         def __str__(self):

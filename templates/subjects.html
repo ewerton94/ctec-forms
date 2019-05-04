@@ -17,6 +17,18 @@
                   {% csrf_token %}
                   <h1>{{ form.name }}</h1>
                   <p style="color: black; text-align: justify; font-weight: normal;">{{ form.description }}</p>
+
+                  {% if erro %}
+
+                  <div class="alert alert-danger fade in">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    {{ erro }}
+</div>
+
+
+
+
+                  {% endif %}
                   {% if subjects %}
                   <h2>Responda as  questões sobre cada disciplina abaixo:</h2>
                   {% for subject in subjects %}
@@ -74,6 +86,14 @@
                   {% endfor %}
                   {% endif %}
                   {% if grades %}
+                  <div class="form-input">
+                      <label for="matricula">Matrícula</label>
+                      <input class="form-control" name="matricula" id="matricula"/ required >
+                  </div>
+                  <div class="alert alert-info fade in">
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    Sua matrícula é utilizada apenas com a finalidade de se ter um controle das respostas, e para remover respostas de alunos que não são de Engenharia Civil. <strong>Preencha corretamente sua matrícula e garanta sua contribuição.</strong>
+</div>
                   <h2>Selecione as disciplinas que você pagou no semestre 2018.2</h2>
                   {% for grade in grades %}
                   <div class="panel panel-default">
@@ -100,14 +120,13 @@
                   {% endfor %}
                   {% endif %}
 
-                  {% if error %}
-                  {{ error }}
-                  {% endif %}
+
 
                   {% if success %}
                   <div class="alert alert-success fade in">
     <a href="#" class="close" data-dismiss="alert">&times;</a>
-    <strong>Enviado!</strong> Sua resposta para este formulário foi salva com sucesso. Obrigado por sua contribuição.
+    <p style="color:black"><strong>Enviado!</strong> Sua resposta para este formulário foi salva com sucesso. Obrigado por sua contribuição.</p>
+    <p><a href="?" >Voltar ao formulário!</a></p>
 </div>
 
                   {% else %}
@@ -130,6 +149,11 @@
 
 {% block extra_js %}
 <script>
+
+$(function(){
+                     $("#register-form").validate();
+             });
+
 
 
  </script>
