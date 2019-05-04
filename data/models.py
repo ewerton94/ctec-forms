@@ -180,11 +180,3 @@ class Result(models.Model):
 
     def __unicode__(self):
         return self.order
-
-
-    if sys.version_info[0] >= 3: # Python 3
-        def __str__(self):
-            return self.__unicode__()
-    else:  # Python 2
-        def __str__(self):
-            return self.__unicode__().encode('utf8')
