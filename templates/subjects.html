@@ -144,7 +144,7 @@
 
 
                     <div class="form-submit">
-                        <input type="submit" value="Submit" class="submit" id="submit" name="submit" />
+                        <input type="submit" value="Submit" class="submit" id="submit{% if subjects %}2{% endif %}" name="submit" />
                     </div>
 
                     {% endif %}
@@ -164,6 +164,15 @@
 $(function(){
                      $("#register-form").validate();
              });
+
+             $('#submit2').on('click', function(event) {
+
+if ($("#register-form").valid()) {
+$('#submit2').hide()
+$('<div><img src="https://img3.ibxk.com.br/2014/3/materias/4805475817181134.gif" style="width:50px;" >Enviando, por favor aguarde!</div>').insertBefore('.form-submit')
+}
+
+});
 
 
 
